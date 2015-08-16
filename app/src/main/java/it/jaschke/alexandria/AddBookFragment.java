@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import it.jaschke.alexandria.CameraPreview.ScannerActivity;
 import it.jaschke.alexandria.data.AlexandriaContract;
 import it.jaschke.alexandria.services.BookService;
 import it.jaschke.alexandria.services.DownloadImage;
@@ -96,12 +97,14 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
                 // Hint: Use a Try/Catch block to handle the Intent dispatch gracefully, if you
                 // are using an external app.
                 //when you're done, remove the toast below.
-                Context context = getActivity();
-                CharSequence text = "This button should let you scan a book for its barcode!";
-                int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                Intent intent = new Intent(getActivity(), ScannerActivity.class);
+                startActivityForResult(intent, ScannerActivity.REQUEST_CODE);
+//                Context context = getActivity();
+//                CharSequence text = "This button should let you scan a book for its barcode!";
+//                int duration = Toast.LENGTH_SHORT;
+//                Toast toast = Toast.makeText(context, text, duration);
+//                toast.show();
 
             }
         });
@@ -134,6 +137,10 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
 
     private void restartLoader(){
         getLoaderManager().restartLoader(LOADER_ID, null, this);
+    }
+
+    public void setText(String scannedEan) {
+        ean.setText(scannedEan);
     }
 
     @Override
