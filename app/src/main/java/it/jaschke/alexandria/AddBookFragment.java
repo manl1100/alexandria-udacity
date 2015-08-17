@@ -71,6 +71,12 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
             @Override
             public void afterTextChanged(Editable s) {
                 String ean =s.toString();
+                /**
+                 * Prevent app from crashing on rotation
+                 */
+                if (ean.isEmpty()) {
+                    return;
+                }
                 //catch isbn10 numbers
                 if(ean.length()==10 && !ean.startsWith("978")){
                     ean="978"+ean;
