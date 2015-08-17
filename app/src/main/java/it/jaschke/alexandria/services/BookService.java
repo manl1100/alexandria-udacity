@@ -130,6 +130,7 @@ public class BookService extends IntentService {
             }
             bookJsonString = buffer.toString();
         } catch (Exception e) {
+            // Will handle exception in case of connection issue
             sendBroadcast(getResources().getString(R.string.check_internet_connection));
             Log.e(LOG_TAG, "Error ", e);
         } finally {
@@ -197,13 +198,18 @@ public class BookService extends IntentService {
             }
 
         } catch (JSONException e) {
+            // Handles error if json object cannot be created
+            sendBroadcast(getResources().getString(R.string.not_found));
             Log.e(LOG_TAG, "Error ", e);
         } catch (NullPointerException e) {
-            // when bookJsonString isnt found
-            Toast.makeText(getApplicationContext(), "No books found", Toast.LENGTH_LONG).show();
-            Log.e(LOG_TAG, "NPE ", e);
+            // Handles error if bookJsonString isnt found
+            sendBroadcast(getResources().getString(R.string.check_internet_connection));
+            Log.e(LOG_TAG, "NullPointerException ", e);
+        } catch (Exception e) {
+            // Handle any unknown error
+            sendBroadcast(getResources().getString(R.string.not_found));
+            Log.e(LOG_TAG, "Unknown error ", e);
         }
-        // TODO: take care of case of network error
     }
 
     private void writeBackBook(String ean, String title, String subtitle, String desc, String imgUrl) {
