@@ -75,10 +75,6 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
                 if(ean.length()==10 && !ean.startsWith("978")){
                     ean="978"+ean;
                 }
-                if(ean.length()<13){
-                    clearFields();
-                    return;
-                }
                 //Once we have an ISBN, start a book intent
                 Intent bookIntent = new Intent(getActivity(), BookService.class);
                 bookIntent.putExtra(BookService.EAN, ean);
@@ -100,12 +96,6 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
 
                 Intent intent = new Intent(getActivity(), ScannerActivity.class);
                 startActivityForResult(intent, ScannerActivity.REQUEST_CODE);
-//                Context context = getActivity();
-//                CharSequence text = "This button should let you scan a book for its barcode!";
-//                int duration = Toast.LENGTH_SHORT;
-//                Toast toast = Toast.makeText(context, text, duration);
-//                toast.show();
-
             }
         });
 

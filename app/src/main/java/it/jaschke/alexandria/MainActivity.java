@@ -101,9 +101,11 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String ean = data.getStringExtra("EAN");
-        ((AddBookFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.container)).setText(ean);
+        if (data != null) {
+            String ean = data.getStringExtra("EAN");
+            ((AddBookFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.container)).setText(ean);
+        }
     }
 
     @Override
