@@ -62,7 +62,10 @@ public class BookService extends IntentService {
      * parameters.
      */
     private void deleteBook(String ean) {
-        // prevent number format exception when ean is blank
+        /**
+         * prevent number format exception when ean is blank which causes app to crash,
+         * happens when cancel button is pushed twice
+         */
         if(ean!=null && !ean.isEmpty()) {
             getContentResolver().delete(AlexandriaContract.BookEntry.buildBookUri(Long.parseLong(ean)), null, null);
         }
@@ -131,7 +134,10 @@ public class BookService extends IntentService {
             }
             bookJsonString = buffer.toString();
         } catch (Exception e) {
-            // Will handle exception in case of connection issue
+            /**
+             * Handle any connection issues
+             * Will fire broadcast for UI to inform user
+             */
             sendBroadcast(getResources().getString(R.string.check_internet_connection));
             Log.e(LOG_TAG, "Error ", e);
         } finally {
@@ -199,15 +205,21 @@ public class BookService extends IntentService {
             }
 
         } catch (JSONException e) {
-            // Handles error if json object cannot be created
+            /**
+             * Handles error if json object cannot be created
+             */
             sendBroadcast(getResources().getString(R.string.not_found));
             Log.e(LOG_TAG, "Error ", e);
         } catch (NullPointerException e) {
-            // Handles error if bookJsonString isnt found
+            /**
+             * Handles error if bookJsonString isnt found, happens if connection fails
+             */
             sendBroadcast(getResources().getString(R.string.check_internet_connection));
             Log.e(LOG_TAG, "NullPointerException ", e);
         } catch (Exception e) {
-            // Handle any unknown error
+            /**
+             * Handle any unknown error and inform user
+             */
             sendBroadcast(getResources().getString(R.string.not_found));
             Log.e(LOG_TAG, "Unknown error ", e);
         }
