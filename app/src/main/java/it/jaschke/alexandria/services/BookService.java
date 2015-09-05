@@ -225,6 +225,11 @@ public class BookService extends IntentService {
         }
     }
 
+
+    /**
+     *
+     * Error case, this automatically inserts book data after search
+     */
     private void writeBackBook(String ean, String title, String subtitle, String desc, String imgUrl) {
         ContentValues values= new ContentValues();
         values.put(AlexandriaContract.BookEntry._ID, ean);
