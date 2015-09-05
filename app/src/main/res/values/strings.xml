@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Alexandria</string>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
+    <string name="app_name">
+        <xliff:g id="serieAName">Alexandria</xliff:g>
+    </string>
 
     <!-- Menu Items -->
     <string name="books">List of Books</string>
