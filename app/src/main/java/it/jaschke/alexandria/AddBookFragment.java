@@ -81,6 +81,9 @@ public class AddBookFragment extends Fragment implements LoaderManager.LoaderCal
                 if(ean.length()==10 && !ean.startsWith("978")){
                     ean="978"+ean;
                 }
+                if(ean.length() == 10 || ean.length() == 13){
+                    clearFields();
+                }
                 //Once we have an ISBN, start a book intent
                 Intent bookIntent = new Intent(getActivity(), BookService.class);
                 bookIntent.putExtra(BookService.EAN, ean);
